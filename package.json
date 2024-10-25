@@ -14,7 +14,7 @@
     "@strapi/provider-upload-cloudinary": "^4.25.13",
     "@strapi/strapi": "^4.25.13",
     "ajv": "^8.17.1",
-    "pg": "8.11.3",
+    "pg": "8.13.1",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-router-dom": "^5.3.4",
