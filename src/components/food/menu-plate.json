@@ -1,0 +1,24 @@
+{
+  "collectionName": "components_food_menu_plates",
+  "info": {
+    "displayName": "Menu Plate",
+    "icon": "priceTag"
+  },
+  "options": {},
+  "attributes": {
+    "Name": {
+      "type": "string",
+      "required": true
+    },
+    "Photo": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false
+    }
+  }
+}

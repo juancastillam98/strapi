@@ -1,0 +1,49 @@
+{
+  "kind": "collectionType",
+  "collectionName": "suscriptions",
+  "info": {
+    "singularName": "suscription",
+    "pluralName": "suscriptions",
+    "displayName": "Suscription",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "plan": {
+      "type": "enumeration",
+      "enum": [
+        "Basic",
+        "Premium"
+      ],
+      "default": "Basic",
+      "required": true
+    },
+    "startDate": {
+      "type": "datetime",
+      "required": true
+    },
+    "expirationDate": {
+      "type": "datetime"
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": [
+        "active",
+        "inactive",
+        "canceled",
+        "pending"
+      ]
+    },
+    "user": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "suscription"
+    },
+    "payment_method": {
+      "type": "string"
+    }
+  }
+}

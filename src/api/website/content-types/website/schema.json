@@ -1,0 +1,34 @@
+{
+  "kind": "collectionType",
+  "collectionName": "websites",
+  "info": {
+    "singularName": "website",
+    "pluralName": "websites",
+    "displayName": "Website"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text",
+      "required": true
+    },
+    "restaurant": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::restaurant.restaurant",
+      "inversedBy": "website"
+    },
+    "template": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::template.template",
+      "mappedBy": "website"
+    }
+  }
+}

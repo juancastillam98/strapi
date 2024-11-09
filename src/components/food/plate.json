@@ -1,0 +1,30 @@
+{
+  "collectionName": "components_food_plates",
+  "info": {
+    "displayName": "Plate"
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text",
+      "required": true,
+      "minLength": 10
+    },
+    "price": {
+      "type": "decimal",
+      "required": true
+    },
+    "photo": {
+      "allowedTypes": [
+        "images"
+      ],
+      "type": "media",
+      "multiple": false,
+      "required": true
+    }
+  }
+}

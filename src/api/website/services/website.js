@@ -1,9 +1,9 @@
 'use strict';
 
 /**
- * plato service
+ * website service
  */
 
 const { createCoreService } = require('@strapi/strapi').factories;
 
-module.exports = createCoreService('api::plato.plato');
+module.exports = createCoreService('api::website.website');

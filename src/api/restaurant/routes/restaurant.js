@@ -1,9 +1,9 @@
 'use strict';
 
 /**
- * plato router
+ * restaurant router
  */
 
 const { createCoreRouter } = require('@strapi/strapi').factories;
 
-module.exports = createCoreRouter('api::plato.plato');
+module.exports = createCoreRouter('api::restaurant.restaurant');

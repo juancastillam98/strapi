@@ -1,0 +1,71 @@
+{
+  "kind": "collectionType",
+  "collectionName": "restaurants",
+  "info": {
+    "singularName": "restaurant",
+    "pluralName": "restaurants",
+    "displayName": "Restaurant",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text"
+    },
+    "address": {
+      "type": "string",
+      "required": true
+    },
+    "phone": {
+      "type": "string",
+      "required": true,
+      "minLength": 8,
+      "maxLength": 15
+    },
+    "email": {
+      "type": "email",
+      "required": true
+    },
+    "hoursOpen": {
+      "type": "text",
+      "required": true
+    },
+    "restaurantImages": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "restaurants"
+    },
+    "website": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::website.website",
+      "mappedBy": "restaurant"
+    },
+    "menus": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::menu.menu",
+      "mappedBy": "restaurant"
+    },
+    "plates": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::plate.plate"
+    }
+  }
+}

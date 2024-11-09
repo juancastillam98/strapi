@@ -1,0 +1,27 @@
+{
+  "kind": "collectionType",
+  "collectionName": "plates",
+  "info": {
+    "singularName": "plate",
+    "pluralName": "plates",
+    "displayName": "Plate",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "category": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::category.category",
+      "inversedBy": "plates"
+    },
+    "plate_info": {
+      "type": "component",
+      "repeatable": true,
+      "component": "food.plate",
+      "required": true
+    }
+  }
+}

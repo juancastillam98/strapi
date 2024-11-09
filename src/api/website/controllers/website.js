@@ -1,9 +1,9 @@
 'use strict';
 
 /**
- * plato controller
+ * website controller
  */
 
 const { createCoreController } = require('@strapi/strapi').factories;
 
-module.exports = createCoreController('api::plato.plato');
+module.exports = createCoreController('api::website.website');

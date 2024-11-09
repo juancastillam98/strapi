@@ -362,36 +362,6 @@ export interface AdminTransferTokenPermission extends Schema.CollectionType {
   };
 }
 
-export interface ApiPlatoPlato extends Schema.CollectionType {
-  collectionName: 'platos';
-  info: {
-    singularName: 'plato';
-    pluralName: 'platos';
-    displayName: 'Plato';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    Name: Attribute.String & Attribute.Required;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::plato.plato',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::plato.plato',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
 export interface PluginUploadFile extends Schema.CollectionType {
   collectionName: 'files';
   info: {
@@ -754,6 +724,16 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'manyToOne',
       'plugin::users-permissions.role'
     >;
+    suscription: Attribute.Relation<
+      'plugin::users-permissions.user',
+      'oneToOne',
+      'api::suscription.suscription'
+    >;
+    restaurants: Attribute.Relation<
+      'plugin::users-permissions.user',
+      'oneToMany',
+      'api::restaurant.restaurant'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -771,6 +751,295 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
   };
 }
 
+export interface ApiCategoryCategory extends Schema.CollectionType {
+  collectionName: 'categories';
+  info: {
+    singularName: 'category';
+    pluralName: 'categories';
+    displayName: 'Category';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String & Attribute.Required;
+    plates: Attribute.Relation<
+      'api::category.category',
+      'oneToMany',
+      'api::plate.plate'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::category.category',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::category.category',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiMenuMenu extends Schema.CollectionType {
+  collectionName: 'menus';
+  info: {
+    singularName: 'menu';
+    pluralName: 'menus';
+    displayName: 'Menu';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String & Attribute.Required;
+    description: Attribute.Text;
+    price: Attribute.Decimal & Attribute.Required;
+    restaurant: Attribute.Relation<
+      'api::menu.menu',
+      'manyToOne',
+      'api::restaurant.restaurant'
+    >;
+    Plates: Attribute.Component<'food.menu-plate', true>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<'api::menu.menu', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<'api::menu.menu', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+  };
+}
+
+export interface ApiPlatePlate extends Schema.CollectionType {
+  collectionName: 'plates';
+  info: {
+    singularName: 'plate';
+    pluralName: 'plates';
+    displayName: 'Plate';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    category: Attribute.Relation<
+      'api::plate.plate',
+      'manyToOne',
+      'api::category.category'
+    >;
+    plate_info: Attribute.Component<'food.plate', true> & Attribute.Required;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::plate.plate',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::plate.plate',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiRestaurantRestaurant extends Schema.CollectionType {
+  collectionName: 'restaurants';
+  info: {
+    singularName: 'restaurant';
+    pluralName: 'restaurants';
+    displayName: 'Restaurant';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String & Attribute.Required;
+    description: Attribute.Text;
+    address: Attribute.String & Attribute.Required;
+    phone: Attribute.String &
+      Attribute.Required &
+      Attribute.SetMinMaxLength<{
+        minLength: 8;
+        maxLength: 15;
+      }>;
+    email: Attribute.Email & Attribute.Required;
+    hoursOpen: Attribute.Text & Attribute.Required;
+    restaurantImages: Attribute.Media<'images', true>;
+    user: Attribute.Relation<
+      'api::restaurant.restaurant',
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+    website: Attribute.Relation<
+      'api::restaurant.restaurant',
+      'oneToOne',
+      'api::website.website'
+    >;
+    menus: Attribute.Relation<
+      'api::restaurant.restaurant',
+      'oneToMany',
+      'api::menu.menu'
+    >;
+    plates: Attribute.Relation<
+      'api::restaurant.restaurant',
+      'oneToMany',
+      'api::plate.plate'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::restaurant.restaurant',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::restaurant.restaurant',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiSuscriptionSuscription extends Schema.CollectionType {
+  collectionName: 'suscriptions';
+  info: {
+    singularName: 'suscription';
+    pluralName: 'suscriptions';
+    displayName: 'Suscription';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    plan: Attribute.Enumeration<['Basic', 'Premium']> &
+      Attribute.Required &
+      Attribute.DefaultTo<'Basic'>;
+    startDate: Attribute.DateTime & Attribute.Required;
+    expirationDate: Attribute.DateTime;
+    status: Attribute.Enumeration<
+      ['active', 'inactive', 'canceled', 'pending']
+    >;
+    user: Attribute.Relation<
+      'api::suscription.suscription',
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
+    payment_method: Attribute.String;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::suscription.suscription',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::suscription.suscription',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiTemplateTemplate extends Schema.CollectionType {
+  collectionName: 'templates';
+  info: {
+    singularName: 'template';
+    pluralName: 'templates';
+    displayName: 'Template';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String & Attribute.Required;
+    description: Attribute.Text & Attribute.Required;
+    previewImage: Attribute.Media<'images'> & Attribute.Required;
+    images: Attribute.Media<'images', true> & Attribute.Required;
+    files: Attribute.Media<'files', true> & Attribute.Required;
+    website: Attribute.Relation<
+      'api::template.template',
+      'oneToOne',
+      'api::website.website'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::template.template',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::template.template',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiWebsiteWebsite extends Schema.CollectionType {
+  collectionName: 'websites';
+  info: {
+    singularName: 'website';
+    pluralName: 'websites';
+    displayName: 'Website';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String & Attribute.Required;
+    description: Attribute.Text & Attribute.Required;
+    restaurant: Attribute.Relation<
+      'api::website.website',
+      'oneToOne',
+      'api::restaurant.restaurant'
+    >;
+    template: Attribute.Relation<
+      'api::website.website',
+      'oneToOne',
+      'api::template.template'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::website.website',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::website.website',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 declare module '@strapi/types' {
   export module Shared {
     export interface ContentTypes {
@@ -781,7 +1050,6 @@ declare module '@strapi/types' {
       'admin::api-token-permission': AdminApiTokenPermission;
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
-      'api::plato.plato': ApiPlatoPlato;
       'plugin::upload.file': PluginUploadFile;
       'plugin::upload.folder': PluginUploadFolder;
       'plugin::content-releases.release': PluginContentReleasesRelease;
@@ -789,6 +1057,13 @@ declare module '@strapi/types' {
       'plugin::users-permissions.permission': PluginUsersPermissionsPermission;
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
+      'api::category.category': ApiCategoryCategory;
+      'api::menu.menu': ApiMenuMenu;
+      'api::plate.plate': ApiPlatePlate;
+      'api::restaurant.restaurant': ApiRestaurantRestaurant;
+      'api::suscription.suscription': ApiSuscriptionSuscription;
+      'api::template.template': ApiTemplateTemplate;
+      'api::website.website': ApiWebsiteWebsite;
     }
   }
 }
